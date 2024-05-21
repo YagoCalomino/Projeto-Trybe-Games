@@ -9,7 +9,7 @@ namespace TrybeGames.Test;
 [Collection("Sequential")]
 public class TestTrybeGamesDatabase
 {
-    // 10. Implemente os testes da funcionalidade de buscar jogos jogados por uma pessoa jogadora
+    // 10. Implemente os testes da funcionalidade de buscar jogos jogados por uma pessoa jogadora!
     [Theory(DisplayName = "Deve testar se GetGamesPlayedBy retorna jogos jogados pela pessoa jogadora corretamente.")]
     [MemberData(nameof(DataTestGetGamesPlayedBy))]
     public void TestGetGamesPlayedBy(TrybeGamesDatabase databaseEntry, int playerIdEntry, List<Game> expected)
