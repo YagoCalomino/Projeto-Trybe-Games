@@ -11,37 +11,57 @@ public class TrybeGamesDatabase
     // 4. Crie a funcionalidade de buscar jogos desenvolvidos por um estúdio de jogos
     public List<Game> GetGamesDevelopedBy(GameStudio gameStudio)
     {
-        // implementar
-        throw new NotImplementedException();
+        var filteredGames = Games.Where(game => game.DeveloperStudio == gameStudio.Id).ToList();
+        return filteredGames;
     }
 
     // 5. Crie a funcionalidade de buscar jogos jogados por uma pessoa jogadora
     public List<Game> GetGamesPlayedBy(Player player)
     {
-        // Implementar
-        throw new NotImplementedException();  
+        var playerGames = from game in Games
+                        from playerGame in game.Players
+                        where playerGame == player.Id
+                        select game;
+
+        var playerGamesList = playerGames.ToList();
+        return playerGamesList;
     }
 
     // 6. Crie a funcionalidade de buscar jogos comprados por uma pessoa jogadora
     public List<Game> GetGamesOwnedBy(Player playerEntry)
     {
-        // Implementar
-        throw new NotImplementedException();
+        var filteredGames = from game in Games
+                            from playerGame in game.Players
+                            where playerGame == playerEntry.Id
+                            select game;
+
+        return filteredGames.ToList();
     }
 
 
     // 7. Crie a funcionalidade de buscar todos os jogos junto do nome do estúdio desenvolvedor
     public List<GameWithStudio> GetGamesWithStudio()
     {
-        // Implementar
-        throw new NotImplementedException();                      
+        var gameStudioList = from studio in GameStudios
+                            join game in Games on studio.Id equals game.DeveloperStudio
+                            select new GameWithStudio
+                            {
+                                GameName = game.Name,
+                                StudioName = studio.Name,
+                                NumberOfPlayers = game.Players.Count
+                            };
+
+        return gameStudioList.ToList();
     }
     
     // 8. Crie a funcionalidade de buscar todos os diferentes Tipos de jogos dentre os jogos cadastrados
     public List<GameType> GetGameTypes()
     {
-        // Implementar
-        throw new NotImplementedException();
+        var gameTypes = from game in Games
+                        group game by game.GameType into types
+                        select types.Key;
+
+        return gameTypes.ToList();
     }
 
     // 9. Crie a funcionalidade de buscar todos os estúdios de jogos junto dos seus jogos desenvolvidos com suas pessoas jogadoras
